@@ -10,7 +10,8 @@ public class WordleDictionaryLoader {
             String line;
             while ((line = reader.readLine()) != null) {
                 String processed = line.trim().toLowerCase().replace('ё', 'е');
-                if (processed.matches("[а-я]{5}")) {
+                String regex = "[а-я]{" + WordleDictionary.WORD_LENGTH + "}";
+                if (processed.matches(regex)) {
                     words.add(processed);
                 }
             }

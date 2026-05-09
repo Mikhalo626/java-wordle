@@ -6,7 +6,6 @@ public class Wordle {
         try {
             journal = new SystemJournal("game.log");
             WordleDictionaryLoader loader = new WordleDictionaryLoader();
-
             WordleDictionary dictionary = loader.load("dictionary.txt");
             WordleGame game = new WordleGame(dictionary);
 
@@ -14,7 +13,7 @@ public class Wordle {
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("--- Игра WORDLE ---");
-            System.out.println("Введите слово из 5 букв или нажмите Enter для подсказки.");
+            System.out.println("Введите слово из " + WordleDictionary.WORD_LENGTH + " букв или нажмите Enter для подсказки.");
 
             while (game.getAttemptsLeft() > 0) {
                 System.out.print("> ");
@@ -29,8 +28,9 @@ public class Wordle {
                     System.out.println("Подсказка компьютера: " + input);
                 }
 
-                if (!input.matches("[а-я]{5}") || !dictionary.contains(input)) {
-                    System.out.println("Ошибка: слово должно быть из 5 русских букв и быть в словаре.");
+                String regex = "[а-я]{" + WordleDictionary.WORD_LENGTH + "}";
+                if (!input.matches(regex) || !dictionary.contains(input)) {
+                    System.out.println("Ошибка: слово должно быть из " + WordleDictionary.WORD_LENGTH + " русских букв и быть в словаре.");
                     continue;
                 }
 
@@ -47,7 +47,6 @@ public class Wordle {
 
             System.out.println("Попытки закончились. Загаданное слово было: " + game.getTargetWord());
             journal.log("Игра завершена поражением.");
-
         } catch (Exception e) {
             if (journal != null) {
                 journal.log("Критическая ошибка: " + e.getMessage());

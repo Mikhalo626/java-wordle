@@ -1,6 +1,8 @@
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class WordleDictionary {
+    public static final int WORD_LENGTH = 5;
     private final List<String> words;
 
     public WordleDictionary(List<String> words) {
@@ -16,11 +18,11 @@ public class WordleDictionary {
     }
 
     public static String checkMatch(String input, String target) {
-        StringBuilder result = new StringBuilder(".....");
-        boolean[] targetUsed = new boolean[5];
-        boolean[] inputUsed = new boolean[5];
+        StringBuilder result = new StringBuilder(".".repeat(WORD_LENGTH));
+        boolean[] targetUsed = new boolean[WORD_LENGTH];
+        boolean[] inputUsed = new boolean[WORD_LENGTH];
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WORD_LENGTH; i++) {
             if (input.charAt(i) == target.charAt(i)) {
                 result.setCharAt(i, '+');
                 targetUsed[i] = true;
@@ -28,9 +30,9 @@ public class WordleDictionary {
             }
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WORD_LENGTH; i++) {
             if (!inputUsed[i]) {
-                for (int j = 0; j < 5; j++) {
+                for (int j = 0; j < WORD_LENGTH; j++) {
                     if (!targetUsed[j] && input.charAt(i) == target.charAt(j)) {
                         result.setCharAt(i, '^');
                         targetUsed[j] = true;

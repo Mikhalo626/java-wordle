@@ -1,9 +1,10 @@
 import java.util.*;
 
 public class WordleGame {
+    private static final int MAX_ATTEMPTS = 6;
     private final String targetWord;
     private final WordleDictionary dictionary;
-    private int attemptsLeft = 6;
+    private int attemptsLeft = MAX_ATTEMPTS;
     private final List<String> history = new ArrayList<>();
     private final List<String> hintsFeedback = new ArrayList<>();
     private final Set<String> usedHints = new HashSet<>();
@@ -39,7 +40,7 @@ public class WordleGame {
         for (int i = 0; i < history.size(); i++) {
             String hWord = history.get(i);
             String feedback = hintsFeedback.get(i);
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < WordleDictionary.WORD_LENGTH; j++) {
                 char f = feedback.charAt(j);
                 char wc = word.charAt(j);
                 char hc = hWord.charAt(j);
